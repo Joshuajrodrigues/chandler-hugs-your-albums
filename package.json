@@ -1,0 +1,17 @@
+{
+  "name": "chandler-hugs-your-albums",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/caveat": "^5.0.8",
+    "@fontsource/twinkle-star": "^5.0.12",
+    "astro": "^3.1.0"
+  }
+}
