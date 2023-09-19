@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import "@fontsource/twinkle-star";
 import { authEndpoint, clientId, clientSecret } from "../constants";
 import Search from "../components/Search";
-
+import Canvas from "../components/Canvas";
 const authString = `${clientId}:${clientSecret}`;
 let authorization;
 if (typeof btoa !== "undefined") {
@@ -35,52 +35,24 @@ console.log("authToken", authToken);
   //@ts-ignore
   import confetti from "canvas-confetti";
 
-  
-
-  const canvas: HTMLCanvasElement = document.getElementById(
-    "canvas"
-  ) as HTMLCanvasElement;
-  const ctx = canvas.getContext("2d")!;
-  const image = new Image(60, 45);
-  image.src = "/CHANDLERTEMPLATE.png";
-  const art = new Image(32, 32);
-  art.src = "https://i.scdn.co/image/ab67616d00001e02b4ad7ebaf4575f120eb3f193";
-
-  image.onload = drawImageActualSize.bind(image);
-  function drawImageActualSize(this: HTMLImageElement) {
-    // Use the intrinsic size of image in CSS pixels for the canvas element
-    canvas.width = this.naturalWidth;
-    canvas.height = this.naturalHeight;
-
-    // Will draw the image as 300x227, ignoring the custom size of 60x45
-    // given in the constructor
-    ctx.setTransform(0.8, 0.1, -0.3, 1, 0, 0);
-    ctx.drawImage(art, 250, 210, 320, 230);
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.drawImage(this, 0, 0);
-  }
-
-  function downloadImage(){
-    const dataURL = canvas.toDataURL('image/png');
-    const downloadLink = document.createElement('a');
-    downloadLink.href = dataURL;
-    downloadLink.download = 'myImage.png'; // Set the desired file name
-    downloadLink.click();
-  }
-  const download = document.querySelector("[data-confetti-button]")!;
-  download.addEventListener("click", () =>{ confetti();downloadImage()});
-
+  // function downloadImage(){
+  //   const dataURL = canvas.toDataURL('image/png');
+  //   const downloadLink = document.createElement('a');
+  //   downloadLink.href = dataURL;
+  //   downloadLink.download = 'myImage.png'; // Set the desired file name
+  //   downloadLink.click();
+  // }
+  // const download = document.querySelector("[data-confetti-button]")!;
+  // download.addEventListener("click", () =>{ confetti();downloadImage()});
 </script>
 <Layout title="Chandler hugs your album.">
   <main>
     <h1>*Chandler hugs your album.*</h1>
-    <Search authToken={authToken} client:load />
+
     <dir class="art">
-      <canvas id="canvas"></canvas>
+      <Canvas authToken={authToken} client:load />
     </dir>
-    <button data-confetti-button tabindex="1" class="primary-button"
-      >Download</button
-    >
+
   </main>
 </Layout>
 

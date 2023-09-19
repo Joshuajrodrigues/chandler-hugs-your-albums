@@ -22,7 +22,8 @@ type SearchResponse = {
 
 const Search: FC<{
   authToken: string;
-}> = ({ authToken }) => {
+  handleSelectedArt:(art:SearchResult)=>void
+}> = ({ authToken,handleSelectedArt }) => {
   const [searchResult, setSearchResult] = useState<SearchResult[] | []>([]);
   const [selectedAlbum, setSelectedAlbum] = useState<SearchResult | {}>({ "art": { "height": 300, "url": "https://i.scdn.co/image/ab67616d00001e02b4ad7ebaf4575f120eb3f193", "width": 300 }, "name": "Meteora" });
   const debouncedSearch = debounce(
@@ -78,7 +79,8 @@ const Search: FC<{
         {searchResult?.length > 0 &&
           searchResult?.map((item) => (
             <div
-              onClick={() => {setSelectedAlbum(item);setSearchResult([])}}
+                key={item.art.url}
+              onClick={() => {handleSelectedArt(item);setSearchResult([])}}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -97,7 +99,6 @@ const Search: FC<{
               <span>{item?.name}</span>
             </div>
           ))}
-          {JSON.stringify(selectedAlbum,null,2)}
       </div>
     </>
   );
