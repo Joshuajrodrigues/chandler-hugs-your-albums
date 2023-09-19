@@ -1,9 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import "@fontsource/twinkle-star";
-import { authEndpoint, clientId, clientSecret } from "../constants";
-import Search from "../components/Search";
 import Canvas from "../components/Canvas";
+import { authEndpoint, clientId, clientSecret } from "../constants";
+import Layout from "../layouts/Layout.astro";
 const authString = `${clientId}:${clientSecret}`;
 let authorization;
 if (typeof btoa !== "undefined") {
@@ -28,23 +27,9 @@ const authToken = await fetch(authEndpoint, {
     error = err;
   });
 
-console.log("authToken", authToken);
 ---
 
-<script>
-  //@ts-ignore
-  import confetti from "canvas-confetti";
 
-  // function downloadImage(){
-  //   const dataURL = canvas.toDataURL('image/png');
-  //   const downloadLink = document.createElement('a');
-  //   downloadLink.href = dataURL;
-  //   downloadLink.download = 'myImage.png'; // Set the desired file name
-  //   downloadLink.click();
-  // }
-  // const download = document.querySelector("[data-confetti-button]")!;
-  // download.addEventListener("click", () =>{ confetti();downloadImage()});
-</script>
 <Layout title="Chandler hugs your album.">
   <main>
     <h1>*Chandler hugs your album.*</h1>

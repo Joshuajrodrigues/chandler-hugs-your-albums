@@ -13,8 +13,10 @@ const Canvas: FC<{
 
     const ctx = canvas.getContext("2d")!;
     const image = new Image(60, 45);
+    image.crossOrigin="anonymous"
     image.src = "/CHANDLERTEMPLATE.png";
     const art = new Image(32, 32);
+    art.crossOrigin="anonymous"
     art.src = artwork || "/default.jpg";
 
     image.onload = drawImageActualSize.bind(image, canvas, ctx, art);
@@ -26,6 +28,7 @@ const Canvas: FC<{
     ctx: CanvasRenderingContext2D,
     art: HTMLImageElement
   ) {
+    ctx.reset()
     // Use the intrinsic size of image in CSS pixels for the canvas element
     canvas.width = this.naturalWidth;
     canvas.height = this.naturalHeight;
@@ -37,27 +40,19 @@ const Canvas: FC<{
   }
   function handleDownload() {
     confetti();
-    const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-    canvas.toBlob((blob) => {
-        const newImg = document.createElement("img");
-        newImg.crossOrigin = ""
-        const url = URL.createObjectURL(blob!);
-      
-        newImg.onload = () => {
-
-          // no longer need to read the blob so it's revoked
-          URL.revokeObjectURL(url);
-        };
-      
-        newImg.src = url;
-        document.body.appendChild(newImg);
-      });
+    var link = document.createElement('a');
+    link.download = 'filename.png';
+    let canvas = document.getElementById('canvas') as HTMLCanvasElement 
+    link.href = canvas.toDataURL("image/png")
+    link.click();
   }
   return (
     <div>
       <Search
         authToken={authToken}
         handleSelectedArt={(art) => {
+            console.log("art",art);
+            
           setArtwork(art.art.url);
         }}
       />
