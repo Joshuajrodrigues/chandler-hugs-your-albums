@@ -26,17 +26,13 @@ const authToken = await fetch(authEndpoint, {
   .catch((err) => {
     error = err;
   });
-
 ---
 
-<Layout title="Chandler hugs your album.">
-  <main>
-    <h1 class="text-lg">Chandler hugs your album.</h1>
+<Layout title="Chandler hugs album.">
+  <main class="flex flex-col items-center justify-center">
+    <h1 class="text-[80px] w-full text-center">Chandler hugs albums.</h1>
 
-    <dir class="art">
-      <Canvas authToken={authToken} client:load />
-    </dir>
-
+    <Canvas authToken={authToken} client:load />
   </main>
 </Layout>
 
