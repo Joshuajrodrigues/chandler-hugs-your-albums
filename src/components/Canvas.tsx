@@ -37,7 +37,7 @@ const Canvas: FC<{
         ctx.setTransform(0.8, 0.1, -0.3, 1, 0, 0);
         ctx.drawImage(art, 250, 210, 320, 230);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.drawImage(this, 0, 0);
+        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
 
     }
   }
@@ -50,7 +50,7 @@ const Canvas: FC<{
     link.click();
   }
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex mt-8 flex-col items-center justify-center">
       <Search
         authToken={authToken}
         handleSelectedArt={(art) => {
@@ -59,9 +59,9 @@ const Canvas: FC<{
           setArtwork(art.art.url);
         }}
       />
-      <canvas id="canvas"></canvas>
+      <canvas width="1000" height="1000" style={{width:"200px", height:"200px"}} id="canvas"></canvas>
       <div>
-        <button className="p-5 m-2 bg-green-400 rounded-md hover:scale-[1.05] " onClick={handleDownload}>
+        <button className="p-2 m-2 bg-green-400 rounded-md hover:scale-[1.05] " onClick={handleDownload}>
           Download
         </button>
       </div>
