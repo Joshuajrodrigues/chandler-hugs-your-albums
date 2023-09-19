@@ -17,8 +17,7 @@ const Canvas: FC<{
     image.onload = drawImageActualSize.bind(image, canvas, ctx, art);
     image.crossOrigin = "anonymous";
     image.src = "/CHANDLERTEMPLATE.png";
-    art.crossOrigin = "anonymous";
-    art.src = artwork || "/default.jpg";
+
 
   }, [artwork]);
 
@@ -40,6 +39,8 @@ const Canvas: FC<{
         ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
 
     }
+    art.crossOrigin = "anonymous";
+    art.src = artwork || "/default.jpg";
   }
   function handleDownload() {
     confetti();
@@ -54,8 +55,6 @@ const Canvas: FC<{
       <Search
         authToken={authToken}
         handleSelectedArt={(art) => {
-          console.log("art", art);
-
           setArtwork(art.art.url);
         }}
       />
