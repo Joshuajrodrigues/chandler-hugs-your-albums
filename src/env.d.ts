@@ -1,1 +1,3 @@
 /// <reference types="astro/client" />
+PUBLIC_CLIENT_ID="f967e67a90084a42b2b48b9a5d52635f"
+PUBLIC_CLIENT_SECRET="e9d68ef7f0f2461483e201691aaea3a1"
