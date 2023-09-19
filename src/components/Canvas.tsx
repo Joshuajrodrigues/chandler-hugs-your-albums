@@ -12,14 +12,14 @@ const Canvas: FC<{
     ) as HTMLCanvasElement;
 
     const ctx = canvas.getContext("2d")!;
-    const image = new Image(60, 45);
-    image.crossOrigin="anonymous"
+    const image = new Image();
+    const art = new Image();
+    image.onload = drawImageActualSize.bind(image, canvas, ctx, art);
+    image.crossOrigin = "anonymous";
     image.src = "/CHANDLERTEMPLATE.png";
-    const art = new Image(32, 32);
-    art.crossOrigin="anonymous"
+    art.crossOrigin = "anonymous";
     art.src = artwork || "/default.jpg";
 
-    image.onload = drawImageActualSize.bind(image, canvas, ctx, art);
   }, [artwork]);
 
   function drawImageActualSize(
@@ -28,37 +28,40 @@ const Canvas: FC<{
     ctx: CanvasRenderingContext2D,
     art: HTMLImageElement
   ) {
-    ctx.reset()
-    // Use the intrinsic size of image in CSS pixels for the canvas element
-    canvas.width = this.naturalWidth;
-    canvas.height = this.naturalHeight;
+    ctx.reset();
+    art.onload=()=>{
+        // Use the intrinsic size of image in CSS pixels for the canvas element
+        canvas.width = this.naturalWidth;
+        canvas.height = this.naturalHeight;
+    
+        ctx.setTransform(0.8, 0.1, -0.3, 1, 0, 0);
+        ctx.drawImage(art, 250, 210, 320, 230);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(this, 0, 0);
 
-    ctx.setTransform(0.8, 0.1, -0.3, 1, 0, 0);
-    ctx.drawImage(art, 250, 210, 320, 230);
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.drawImage(this, 0, 0);
+    }
   }
   function handleDownload() {
     confetti();
-    var link = document.createElement('a');
-    link.download = 'filename.png';
-    let canvas = document.getElementById('canvas') as HTMLCanvasElement 
-    link.href = canvas.toDataURL("image/png")
+    var link = document.createElement("a");
+    link.download = `chandlerhugsalbum.png`;
+    let canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    link.href = canvas.toDataURL("image/png");
     link.click();
   }
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <Search
         authToken={authToken}
         handleSelectedArt={(art) => {
-            console.log("art",art);
-            
+          console.log("art", art);
+
           setArtwork(art.art.url);
         }}
       />
       <canvas id="canvas"></canvas>
       <div>
-        <button onClick={handleDownload} className="primary-button">
+        <button className="p-5 m-2 bg-green-400 rounded-md hover:scale-[1.05] " onClick={handleDownload}>
           Download
         </button>
       </div>

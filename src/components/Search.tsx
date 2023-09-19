@@ -22,10 +22,9 @@ type SearchResponse = {
 
 const Search: FC<{
   authToken: string;
-  handleSelectedArt:(art:SearchResult)=>void
-}> = ({ authToken,handleSelectedArt }) => {
+  handleSelectedArt: (art: SearchResult) => void;
+}> = ({ authToken, handleSelectedArt }) => {
   const [searchResult, setSearchResult] = useState<SearchResult[] | []>([]);
-  const [selectedAlbum, setSelectedAlbum] = useState<SearchResult | {}>({ "art": { "height": 300, "url": "https://i.scdn.co/image/ab67616d00001e02b4ad7ebaf4575f120eb3f193", "width": 300 }, "name": "Meteora" });
   const debouncedSearch = debounce(
     (e: ChangeEvent<HTMLInputElement>) => haneleChange(e),
     500
@@ -60,14 +59,7 @@ const Search: FC<{
       <input
         onChange={debouncedSearch}
         type="text"
-        style={{
-          all: "unset",
-          padding: "10px 2px",
-          margin: "10px 5px",
-          background: "rgb(82, 171, 209)",
-          height: "20px",
-          color: "black",
-        }}
+        className="p-5 m-2 w-42 h-16 bg-pink-200 text-green-600 font-extrabold text-xl rounded-md"
         placeholder="Search album"
       />
       <div
@@ -75,19 +67,17 @@ const Search: FC<{
           background: "black",
           height: "auto",
         }}
+        className=" w-64"
       >
         {searchResult?.length > 0 &&
           searchResult?.map((item) => (
             <div
-                key={item.art.url}
-              onClick={() => {handleSelectedArt(item);setSearchResult([])}}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                margin: "10px",
-                cursor: "pointer",
+              key={item.art.url}
+              onClick={() => {
+                handleSelectedArt(item);
+                setSearchResult([]);
               }}
+              className="w-64 p-2 bg-black flex items-center justify-between"
             >
               <img
                 style={{
